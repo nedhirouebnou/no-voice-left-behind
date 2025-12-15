@@ -13,7 +13,7 @@ import {
 import { Mic, Plus, X, Loader2, Upload } from "lucide-react";
 import { INTERVIEW_LABELS, DEFAULT_QUESTIONS } from "@/types/profile";
 import { useCandidateStore } from "@/store/candidateStore";
-import { mockAnalyzeAudio } from "@/lib/mock-data";
+import { analyzeAudio } from "@/lib/api";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -85,8 +85,8 @@ export function AudioUploadForm({ candidateId }: AudioUploadFormProps) {
     updateAudioStep(candidateId, stepId, { status: "processing" });
 
     try {
-      // Call Rajaa's endpoint (mocked)
-      const extractedFields = await mockAnalyzeAudio(
+      // Call Real endpoint
+      const extractedFields = await analyzeAudio(
         candidate.profile,
         questions,
         audioFile
